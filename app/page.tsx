@@ -1,54 +1,50 @@
 import Link from 'next/link';
 import { CATEGORIES } from '@/lib/categories';
 import CategoryIcon from '@/components/CategoryIcon';
+import CategoryRail from '@/components/CategoryRail';
 import ChatWidget from '@/components/ChatWidget';
 
 export default function HomePage() {
   return (
     <main>
-      {/* ---------- hero ---------- */}
-      <section className="relative overflow-hidden px-4 pt-14 pb-20">
-        <div className="floating-glass w-72 h-72 -top-10 -left-16" />
-        <div className="floating-glass w-56 h-56 top-20 right-0" style={{ animationDelay: '3s' }} />
-        <div className="jali-bg absolute inset-0 -z-10 opacity-60" />
-
-        <div className="relative max-w-3xl mx-auto text-center">
-          <div className="text-[11px] tracking-[0.2em] uppercase text-stone500 mb-4">
-            Handworked · One Story at a Time
-          </div>
-          <h1 className="font-display text-[clamp(30px,6vw,52px)] leading-[1.2] text-stone900">
-            Before you enter as a bride, walk in carrying every woman who ever{' '}
-            <span className="hand-underline text-rani">
-              wished
-              <svg viewBox="0 0 90 12" preserveAspectRatio="none">
-                <path d="M2,9 C26,1 60,12 88,3" stroke="#B0225A" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-              </svg>
-            </span>{' '}
-            you well.
-          </h1>
-          <p className="mt-5 text-[15px] text-stone900/80 max-w-xl mx-auto">
-            Every piece here is made once, for one person — never stocked, never repeated the same way twice.
-          </p>
-        </div>
+      {/* ---------- living hero: drag/scroll the knob to move through occasions ---------- */}
+      <section className="px-3 sm:px-4 pt-4">
+        <CategoryRail categories={CATEGORIES} />
+        <p className="text-center text-[11px] tracking-[0.16em] uppercase text-stone500 mt-3">
+          Scroll, drag the knob, or tap a dot — five occasions, one at a time
+        </p>
       </section>
 
-      {/* ---------- glass tile category grid ---------- */}
-      <section id="categories" className="px-4 pb-24">
+      {/* ---------- quick-access grid, photography behind glass ---------- */}
+      <section id="categories" className="px-4 pt-16 pb-20">
+        <div className="max-w-5xl mx-auto text-center mb-8">
+          <div className="text-[11px] tracking-[0.2em] uppercase text-stone500 mb-3">Every Occasion</div>
+          <h2 className="font-display text-[26px] md:text-[32px] text-stone900">Or jump straight to yours</h2>
+        </div>
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
           {CATEGORIES.map((cat, i) => (
             <Link
               href={`/category/${cat.slug}`}
               key={cat.slug}
-              className={`glass-tile flex flex-col items-center justify-center text-center gap-3 p-6 md:p-8 ${
-                i === 0 ? 'col-span-2 md:col-span-1' : ''
-              }`}
-              style={{ minHeight: '190px' }}
+              className={`glass-photo-tile ${i === 0 ? 'col-span-2 md:col-span-1' : ''}`}
+              style={{ minHeight: '210px' }}
             >
-              <div className="w-14 h-14 rounded-full glass-pill flex items-center justify-center text-rani">
-                <CategoryIcon name={cat.icon} className="w-7 h-7" />
+              {cat.heroImage ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={cat.heroImage} alt={cat.eyebrow} className="absolute inset-0 w-full h-full object-cover" />
+              ) : (
+                <div
+                  className="absolute inset-0 w-full h-full"
+                  style={{ background: `linear-gradient(160deg, ${cat.mood.from}, ${cat.mood.to})` }}
+                />
+              )}
+              <div className="glass-photo-caption flex-col items-start gap-1.5">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center mb-1" style={{ background: 'rgba(255,255,255,0.22)', color: cat.mood.ink, border: '1px solid rgba(255,255,255,0.4)' }}>
+                  <CategoryIcon name={cat.icon} className="w-4.5 h-4.5" />
+                </div>
+                <div className="font-display text-[17px]" style={{ color: cat.mood.ink }}>{cat.eyebrow}</div>
+                <div className="text-[11px]" style={{ color: cat.mood.ink, opacity: 0.85 }}>{cat.items.length} styles to begin from</div>
               </div>
-              <div className="font-display text-[18px] text-stone900">{cat.eyebrow}</div>
-              <div className="text-[11px] text-stone500">{cat.items.length} styles to begin from</div>
             </Link>
           ))}
         </div>

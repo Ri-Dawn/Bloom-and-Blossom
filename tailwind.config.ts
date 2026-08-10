@@ -15,6 +15,8 @@ const config: Config = {
         stone900: '#2A211A',
         rani: '#B0225A',
         raniDark: '#8E1B48',
+        marigold: '#E0912A',
+        ivoryGold: '#D9B36C',
       },
       fontFamily: {
         display: ['var(--font-display)', 'serif'],
