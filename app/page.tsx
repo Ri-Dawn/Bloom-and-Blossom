@@ -1,57 +1,25 @@
 import Link from 'next/link';
 import { CATEGORIES } from '@/lib/categories';
-import CategoryIcon from '@/components/CategoryIcon';
-import CategoryRail from '@/components/CategoryRail';
+import ScrollStory from '@/components/ScrollStory';
 import ChatWidget from '@/components/ChatWidget';
 
 export default function HomePage() {
   return (
     <main>
-      {/* ---------- living hero: drag/scroll the knob to move through occasions ---------- */}
-      <section className="px-3 sm:px-4 pt-4">
-        <CategoryRail categories={CATEGORIES} />
-        <p className="text-center text-[11px] tracking-[0.16em] uppercase text-stone500 mt-3">
-          Scroll, drag the knob, or tap a dot — five occasions, one at a time
-        </p>
+      {/* ---------- opening beat ---------- */}
+      <section className="px-6 pt-14 pb-6 text-center max-w-2xl mx-auto">
+        <div className="text-[11px] tracking-[0.22em] uppercase text-stone500 mb-3">Bloom &amp; Blossom</div>
+        <h1 className="font-display text-[clamp(28px,5vw,42px)] text-stone900 leading-tight">
+          Five occasions. One thread running through all of them.
+        </h1>
+        <p className="font-hand text-rani text-xl mt-3">scroll — the site changes with you</p>
       </section>
 
-      {/* ---------- quick-access grid, photography behind glass ---------- */}
-      <section id="categories" className="px-4 pt-16 pb-20">
-        <div className="max-w-5xl mx-auto text-center mb-8">
-          <div className="text-[11px] tracking-[0.2em] uppercase text-stone500 mb-3">Every Occasion</div>
-          <h2 className="font-display text-[26px] md:text-[32px] text-stone900">Or jump straight to yours</h2>
-        </div>
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
-          {CATEGORIES.map((cat, i) => (
-            <Link
-              href={`/category/${cat.slug}`}
-              key={cat.slug}
-              className={`glass-photo-tile ${i === 0 ? 'col-span-2 md:col-span-1' : ''}`}
-              style={{ minHeight: '210px' }}
-            >
-              {cat.heroImage ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={cat.heroImage} alt={cat.eyebrow} className="absolute inset-0 w-full h-full object-cover" />
-              ) : (
-                <div
-                  className="absolute inset-0 w-full h-full"
-                  style={{ background: `linear-gradient(160deg, ${cat.mood.from}, ${cat.mood.to})` }}
-                />
-              )}
-              <div className="glass-photo-caption flex-col items-start gap-1.5">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center mb-1" style={{ background: 'rgba(255,255,255,0.22)', color: cat.mood.ink, border: '1px solid rgba(255,255,255,0.4)' }}>
-                  <CategoryIcon name={cat.icon} className="w-4.5 h-4.5" />
-                </div>
-                <div className="font-display text-[17px]" style={{ color: cat.mood.ink }}>{cat.eyebrow}</div>
-                <div className="text-[11px]" style={{ color: cat.mood.ink, opacity: 0.85 }}>{cat.items.length} styles to begin from</div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* ---------- the scroll storyline ---------- */}
+      <ScrollStory categories={CATEGORIES} />
 
       {/* ---------- the atelier strip ---------- */}
-      <section className="px-4 pb-24">
+      <section className="px-4 py-24">
         <div className="max-w-4xl mx-auto glass-tile p-8 md:p-10 grid md:grid-cols-2 gap-8 items-center">
           <div className="h-44 rounded-2xl bg-stone300/60 flex items-center justify-center text-stone500 text-[11px] uppercase tracking-wide">
             founder photo

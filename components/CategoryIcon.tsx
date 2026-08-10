@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 type IconName = 'rakhi' | 'kaleere' | 'baby' | 'charms' | 'friendship';
 
 const paths: Record<IconName, string> = {
@@ -11,10 +13,10 @@ const paths: Record<IconName, string> = {
   friendship: '',
 };
 
-export default function CategoryIcon({ name, className }: { name: IconName; className?: string }) {
+export default function CategoryIcon({ name, className, style }: { name: IconName; className?: string; style?: CSSProperties }) {
   if (name === 'friendship') {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} style={style}>
         <ellipse cx="12" cy="6" rx="2.2" ry="3.2" />
         <ellipse cx="12" cy="18" rx="2.2" ry="3.2" />
         <ellipse cx="6" cy="12" rx="3.2" ry="2.2" />
@@ -24,7 +26,7 @@ export default function CategoryIcon({ name, className }: { name: IconName; clas
     );
   }
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
       <path d={paths[name]} />
       {name === 'kaleere' && <circle cx="12" cy="19" r="1.3" />}
       {name === 'rakhi' && <circle cx="12" cy="12" r="1.6" />}

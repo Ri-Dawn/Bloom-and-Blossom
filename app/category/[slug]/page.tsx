@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { findCategory } from '@/lib/categories';
 import CategoryIcon from '@/components/CategoryIcon';
+import { MotifFor } from '@/components/decor/Motifs';
 import ChatWidget from '@/components/ChatWidget';
 
 export default function CategoryPage({ params }: { params: { slug: string } }) {
@@ -11,19 +12,11 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   return (
     <main className="px-4 pb-24">
       <section className="max-w-4xl mx-auto pt-8 pb-10">
-        <div
-          className="mood-stage relative overflow-hidden"
-          style={{ minHeight: '260px' }}
-        >
-          <div className="mood-layer" style={{ opacity: 1 }}>
-            {cat.heroImage ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={cat.heroImage} alt="" />
-            ) : (
-              <div className="w-full h-full" style={{ background: `linear-gradient(160deg, ${cat.mood.from}, ${cat.mood.to})` }} />
-            )}
-            <div className="mood-scrim" style={{ background: `linear-gradient(150deg, ${cat.mood.from}CC 10%, ${cat.mood.to}66 85%)` }} />
-            <div className="mood-scrim-top" />
+        <div className="mood-stage relative overflow-hidden" style={{ minHeight: '260px' }}>
+          <div className="absolute inset-0" style={{ background: `linear-gradient(150deg, ${cat.mood.from}, ${cat.mood.to})` }} />
+          <div className="absolute inset-0 diya-dots opacity-15" />
+          <div className="absolute top-0 left-0 right-0 opacity-70" style={{ color: cat.mood.accent }}>
+            <MotifFor motif={cat.motif} className="w-full h-[90px]" />
           </div>
           <div className="relative z-10 h-full flex flex-col justify-end gap-8 p-8 md:p-10" style={{ minHeight: '260px' }}>
             <div className="flex items-center gap-4">
@@ -51,13 +44,8 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
               : `/checkout?cat=${cat.slug}&item=${item.slug}&price=${item.price}&name=${encodeURIComponent(item.name)}`;
             return (
               <Link href={href} key={item.slug} className="glass-tile overflow-hidden flex flex-col">
-                <div className="h-28 relative overflow-hidden">
-                  {item.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full" style={{ background: `linear-gradient(160deg, ${cat.mood.from}33, ${cat.mood.to}33)` }} />
-                  )}
+                <div className="h-28 relative overflow-hidden flex items-center justify-center" style={{ background: `linear-gradient(160deg, ${cat.mood.from}22, ${cat.mood.to}22)` }}>
+                  <CategoryIcon name={cat.icon} className="w-8 h-8" style={{ color: cat.mood.from }} />
                 </div>
                 <div className="p-4">
                   <div className="font-display text-[15px] text-stone900 leading-snug">{item.name}</div>
