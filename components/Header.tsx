@@ -14,7 +14,7 @@ export default function Header() {
           </svg>
           <span className="font-display text-[17px] text-stone900 tracking-wide">Bloom &amp; Blossom</span>
         </Link>
-        <nav className="flex items-center gap-4 text-[12px] text-stone900">
+        <nav className="flex items-center gap-6 text-[11.5px] tracking-[0.14em] uppercase text-stone900 font-medium">
           <Link href="/track" className="hover:text-rani hidden sm:inline">Track Order</Link>
           <Link href="/atelier" className="hover:text-rani hidden sm:inline">The Atelier</Link>
           <Link href="/#categories" className="hover:text-rani">Shop</Link>

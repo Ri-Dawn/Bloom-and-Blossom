@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { findCategory } from '@/lib/categories';
 import CategoryIcon from '@/components/CategoryIcon';
-import { MotifFor } from '@/components/decor/Motifs';
+import FairyLights from '@/components/decor/FairyLights';
 import ChatWidget from '@/components/ChatWidget';
 
 export default function CategoryPage({ params }: { params: { slug: string } }) {
@@ -15,8 +15,8 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
         <div className="mood-stage relative overflow-hidden" style={{ minHeight: '260px' }}>
           <div className="absolute inset-0" style={{ background: `linear-gradient(150deg, ${cat.mood.from}, ${cat.mood.to})` }} />
           <div className="absolute inset-0 diya-dots opacity-15" />
-          <div className="absolute top-0 left-0 right-0 opacity-70" style={{ color: cat.mood.accent }}>
-            <MotifFor motif={cat.motif} className="w-full h-[90px]" />
+          <div className="absolute top-0 left-0 right-0 opacity-90">
+            <FairyLights color={cat.mood.accent} className="w-full h-[80px]" />
           </div>
           <div className="relative z-10 h-full flex flex-col justify-end gap-8 p-8 md:p-10" style={{ minHeight: '260px' }}>
             <div className="flex items-center gap-4">

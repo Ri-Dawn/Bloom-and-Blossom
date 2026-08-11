@@ -42,11 +42,24 @@ export default function ParticleField() {
       const geometry = new THREE.BufferGeometry();
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
+      // a soft round glow sprite — without this, Points renders flat squares
+      const spriteCanvas = document.createElement('canvas');
+      spriteCanvas.width = 64;
+      spriteCanvas.height = 64;
+      const ctx2d = spriteCanvas.getContext('2d')!;
+      const grad = ctx2d.createRadialGradient(32, 32, 0, 32, 32, 32);
+      grad.addColorStop(0, 'rgba(255,250,235,1)');
+      grad.addColorStop(0.4, 'rgba(242,200,121,0.9)');
+      grad.addColorStop(1, 'rgba(242,200,121,0)');
+      ctx2d.fillStyle = grad;
+      ctx2d.fillRect(0, 0, 64, 64);
+      const sprite = new THREE.CanvasTexture(spriteCanvas);
+
       const material = new THREE.PointsMaterial({
-        color: new THREE.Color('#f2c879'),
-        size: 0.9,
+        map: sprite,
+        size: 2.6,
         transparent: true,
-        opacity: 0.55,
+        opacity: 0.6,
         depthWrite: false,
         blending: THREE.AdditiveBlending,
       });
@@ -84,6 +97,7 @@ export default function ParticleField() {
         cancelAnimationFrame(raf);
         geometry.dispose();
         material.dispose();
+        sprite.dispose();
         renderer?.dispose();
         if (renderer?.domElement && container.contains(renderer.domElement)) {
           container.removeChild(renderer.domElement);

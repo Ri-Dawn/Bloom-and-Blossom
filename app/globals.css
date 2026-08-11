@@ -187,10 +187,12 @@ body {
 /* ---------- header takes on the current occasion's colour ---------- */
 :root {
   --current-mood: #b0225a;
+  --current-mood-wash: linear-gradient(120deg, rgba(176, 34, 90, 0.16), rgba(224, 145, 42, 0.1));
 }
 .mood-aware-border {
-  box-shadow: 0 1px 0 0 var(--current-mood, transparent), 0 4px 20px rgba(42, 33, 26, 0.08);
-  transition: box-shadow 700ms ease;
+  background-image: var(--current-mood-wash);
+  box-shadow: 0 1px 0 0 var(--current-mood, transparent), 0 8px 28px rgba(42, 33, 26, 0.1);
+  transition: background-image 700ms ease, box-shadow 700ms ease;
 }
 .mood-aware-text {
   color: var(--current-mood, #b0225a);
@@ -210,6 +212,17 @@ body {
   z-index: 2;
   pointer-events: none;
   opacity: 0.55;
+}
+
+/* ---------- fairy light string: the one thread running through ---------- */
+@keyframes bulbTwinkle {
+  0%, 100% { opacity: 0.65; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+.fairylight-bulb {
+  animation: bulbTwinkle 2.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
 }
 
 /* ---------- the knob rail ---------- */

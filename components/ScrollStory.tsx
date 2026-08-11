@@ -8,11 +8,29 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Category } from '@/lib/categories';
 import CategoryIcon from './CategoryIcon';
 import { MotifFor } from './decor/Motifs';
+import FairyLights from './decor/FairyLights';
 import TravelingLight from './TravelingLight';
 import ParticleField from './ParticleField';
 
+function hexToRgb(hex: string) {
+  const clean = hex.replace('#', '');
+  const bigint = parseInt(clean, 16);
+  return { r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255 };
+}
+
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
+}
+
+function applyMood(cat: Category) {
+  const from = hexToRgb(cat.mood.from);
+  const to = hexToRgb(cat.mood.to);
+  const root = document.documentElement.style;
+  root.setProperty('--current-mood', cat.mood.accent);
+  root.setProperty(
+    '--current-mood-wash',
+    `linear-gradient(120deg, rgba(${from.r},${from.g},${from.b},0.22), rgba(${to.r},${to.g},${to.b},0.13))`
+  );
 }
 
 function Section({ cat, index }: { cat: Category; index: number }) {
@@ -62,8 +80,8 @@ function Section({ cat, index }: { cat: Category; index: number }) {
         trigger: sectionRef.current,
         start: 'top center',
         end: 'bottom center',
-        onEnter: () => document.documentElement.style.setProperty('--current-mood', cat.mood.accent),
-        onEnterBack: () => document.documentElement.style.setProperty('--current-mood', cat.mood.accent),
+        onEnter: () => applyMood(cat),
+        onEnterBack: () => applyMood(cat),
       });
     }, sectionRef);
 
@@ -83,12 +101,11 @@ function Section({ cat, index }: { cat: Category; index: number }) {
       <div ref={topWrapRef} className="absolute top-0 left-0 right-0">
         <motion.div
           initial={{ opacity: 0, y: -16 }}
-          whileInView={{ opacity: 0.8, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ color: cat.mood.accent }}
         >
-          <MotifFor motif={cat.motif} className="w-full h-[110px] md:h-[150px]" />
+          <FairyLights color={cat.mood.accent} className="w-full h-[100px] md:h-[130px]" />
         </motion.div>
       </div>
 
