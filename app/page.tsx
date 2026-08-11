@@ -39,6 +39,7 @@ export default function HomePage() {
       </section>
 
       <footer className="bg-stone900 text-stone50 px-4 py-10">
+        <div className="footer-thread max-w-5xl mx-auto mb-8" />
         <div className="max-w-5xl mx-auto flex flex-wrap justify-between gap-6 text-[12px]">
           <div>© Bloom &amp; Blossom</div>
           <div className="flex gap-5">

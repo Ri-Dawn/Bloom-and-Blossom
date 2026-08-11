@@ -1,49 +1,110 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Category } from '@/lib/categories';
 import CategoryIcon from './CategoryIcon';
 import { MotifFor } from './decor/Motifs';
 import TravelingLight from './TravelingLight';
+import ParticleField from './ParticleField';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 function Section({ cat, index }: { cat: Category; index: number }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const topWrapRef = useRef<HTMLDivElement>(null);
+  const bottomWrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const ctx = gsap.context(() => {
+      // gentle parallax: the motif strips drift against the scroll
+      if (topWrapRef.current) {
+        gsap.fromTo(
+          topWrapRef.current,
+          { y: -26 },
+          {
+            y: 26,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 0.6,
+            },
+          }
+        );
+      }
+      if (bottomWrapRef.current) {
+        gsap.fromTo(
+          bottomWrapRef.current,
+          { y: 18 },
+          {
+            y: -18,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 0.6,
+            },
+          }
+        );
+      }
+      // hand the header the current occasion's colour as this section
+      // crosses the middle of the viewport, in either scroll direction
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => document.documentElement.style.setProperty('--current-mood', cat.mood.accent),
+        onEnterBack: () => document.documentElement.style.setProperty('--current-mood', cat.mood.accent),
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [cat.mood.accent]);
+
   return (
     <section
+      ref={sectionRef}
       id={cat.slug}
       className="relative flex items-center overflow-hidden"
       style={{ minHeight: 'clamp(520px, 92vh, 900px)' }}
     >
-      {/* mood backdrop */}
       <div className="absolute inset-0" style={{ background: `linear-gradient(150deg, ${cat.mood.from}, ${cat.mood.to})` }} />
       <div className="absolute inset-0 diya-dots opacity-15" />
 
-      {/* top decorative motif strip */}
-      <motion.div
-        initial={{ opacity: 0, y: -16 }}
-        whileInView={{ opacity: 0.8, y: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 left-0 right-0"
-        style={{ color: cat.mood.accent }}
-      >
-        <MotifFor motif={cat.motif} className="w-full h-[110px] md:h-[150px]" />
-      </motion.div>
+      <div ref={topWrapRef} className="absolute top-0 left-0 right-0">
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          whileInView={{ opacity: 0.8, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ color: cat.mood.accent }}
+        >
+          <MotifFor motif={cat.motif} className="w-full h-[110px] md:h-[150px]" />
+        </motion.div>
+      </div>
 
-      {/* bottom decorative motif strip, mirrored */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 0.55, y: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-0 left-0 right-0 scale-y-[-1]"
-        style={{ color: cat.mood.accent }}
-      >
-        <MotifFor motif={cat.motif} className="w-full h-[90px] md:h-[120px]" />
-      </motion.div>
+      <div ref={bottomWrapRef} className="absolute bottom-0 left-0 right-0">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 0.55, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="scale-y-[-1]"
+          style={{ color: cat.mood.accent }}
+        >
+          <MotifFor motif={cat.motif} className="w-full h-[90px] md:h-[120px]" />
+        </motion.div>
+      </div>
 
-      {/* copy */}
       <div className="relative z-10 max-w-2xl mx-auto px-6 sm:px-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 22 }}
@@ -109,9 +170,9 @@ export default function ScrollStory({ categories }: { categories: Category[] }) 
 
   return (
     <div ref={containerRef} className="relative">
+      <ParticleField />
       <TravelingLight containerRef={containerRef} colors={colors} />
 
-      {/* quick-jump dots */}
       <div className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-30 hidden sm:flex flex-col gap-4">
         {categories.map((c) => (
           <a

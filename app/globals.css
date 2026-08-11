@@ -153,6 +153,65 @@ body {
   background-size: 16px 16px;
 }
 
+/* ---------- idle life for the decorative motifs ---------- */
+@keyframes motifSway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.motif-bell,
+.motif-sway {
+  animation: motifSway 3.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+
+@keyframes motifTwinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+.motif-twinkle {
+  animation: motifTwinkle 2.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+@keyframes motifGlow {
+  0%, 100% { opacity: 0.55; filter: drop-shadow(0 0 0px currentColor); }
+  50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); }
+}
+.motif-glow {
+  animation: motifGlow 2.8s ease-in-out infinite;
+  transform-box: fill-box;
+}
+
+/* ---------- header takes on the current occasion's colour ---------- */
+:root {
+  --current-mood: #b0225a;
+}
+.mood-aware-border {
+  box-shadow: 0 1px 0 0 var(--current-mood, transparent), 0 4px 20px rgba(42, 33, 26, 0.08);
+  transition: box-shadow 700ms ease;
+}
+.mood-aware-text {
+  color: var(--current-mood, #b0225a);
+  transition: color 700ms ease;
+}
+
+/* ---------- footer, a quiet echo of the marigold string ---------- */
+.footer-thread {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217, 179, 108, 0.6) 20%, rgba(217, 179, 108, 0.6) 80%, transparent);
+}
+
+/* ---------- ambient particle canvas ---------- */
+.particle-field {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
 /* ---------- the knob rail ---------- */
 .knob-track {
   position: relative;
