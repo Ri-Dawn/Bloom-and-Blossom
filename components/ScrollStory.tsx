@@ -9,6 +9,7 @@ import type { Category } from '@/lib/categories';
 import CategoryIcon from './CategoryIcon';
 import { MotifFor } from './decor/Motifs';
 import FairyLights from './decor/FairyLights';
+import RakhiTieAnimation from './decor/RakhiTieAnimation';
 import TravelingLight from './TravelingLight';
 import ParticleField from './ParticleField';
 
@@ -121,6 +122,12 @@ function Section({ cat, index }: { cat: Category; index: number }) {
           <MotifFor motif={cat.motif} className="w-full h-[90px] md:h-[120px]" />
         </motion.div>
       </div>
+
+      {cat.motif === 'rakhi' && (
+        <div className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 w-[240px] pointer-events-none opacity-95">
+          <RakhiTieAnimation triggerRef={sectionRef} ink={cat.mood.ink} accent={cat.mood.accent} />
+        </div>
+      )}
 
       <div className="relative z-10 max-w-2xl mx-auto px-6 sm:px-10 text-center">
         <motion.div
