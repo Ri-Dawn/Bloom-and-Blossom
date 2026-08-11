@@ -10,7 +10,7 @@ export default function HomePage() {
       <section className="px-6 pt-14 pb-6 text-center max-w-2xl mx-auto">
         <div className="text-[11px] tracking-[0.22em] uppercase text-stone500 mb-3">Bloom &amp; Blossom</div>
         <h1 className="font-display text-[clamp(28px,5vw,42px)] text-stone900 leading-tight">
-          Five occasions. One thread running through all of them.
+          Every occasion. One thread running through all of them.
         </h1>
         <p className="font-hand text-rani text-xl mt-3">scroll — the site changes with you</p>
       </section>

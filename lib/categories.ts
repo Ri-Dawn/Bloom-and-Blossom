@@ -1,7 +1,7 @@
 export interface CatalogItem {
   slug: string;
   name: string;
-  price: number;
+  price: number; // placeholder — pending confirmed pricing
   customisable: boolean; // if false, skips the Studio entirely
 }
 
@@ -20,9 +20,10 @@ export interface Category {
   headline: string;
   blurb: string;
   icon: Motif;
-  motif: Motif; // which decorative illustration set to use for this section
+  motif: Motif;
   mood: Mood;
   items: CatalogItem[];
+  comingSoon?: boolean;
 }
 
 export const CATEGORIES: Category[] = [
@@ -35,70 +36,84 @@ export const CATEGORIES: Category[] = [
     motif: 'rakhi',
     mood: { from: '#7A1230', to: '#E0912A', ink: '#FCEFE0', accent: '#F2B705' },
     items: [
-      { slug: 'bada-bhai-rakhi', name: 'Bada Bhai Rakhi', price: 750, customisable: true },
-      { slug: 'sabse-pyaara-bhai', name: 'Sabse Pyaara Bhai', price: 750, customisable: true },
-      { slug: 'evil-eye-name-rakhi', name: 'Evil Eye Name Rakhi', price: 950, customisable: true },
-      { slug: 'bhabhi-rakhi', name: "Bhabhi's Rakhi", price: 950, customisable: true },
+      { slug: 'brother-rakhi', name: 'Brother Rakhi', price: 650, customisable: true },
+      { slug: 'mini-charm-bangle', name: 'Mini Charm Bangle', price: 950, customisable: true },
+      { slug: 'evil-eye-bangle', name: 'Evil Eye Bangle', price: 1050, customisable: true },
+      { slug: 'mirror-lumba', name: 'Mirror Lumba', price: 850, customisable: true },
+      { slug: 'nazariya-rakhi-bracelet', name: 'Nazariya Rakhi Bracelet', price: 750, customisable: true },
+      { slug: 'infinity-charm-bangle', name: 'Infinity Charm Bangle', price: 1100, customisable: true },
+      { slug: 'noor-bracelet', name: 'Noor Bracelet', price: 950, customisable: true },
+      { slug: 'pearl-charm-bangle', name: 'Pearl Charm Bangle', price: 1250, customisable: true },
+      { slug: 'rainbow-bracelet', name: 'Rainbow Bracelet', price: 800, customisable: true },
+      { slug: 'heart-bangle', name: 'Heart Bangle', price: 1050, customisable: true },
+      { slug: 'kundan-bracelet', name: 'Kundan Bracelet', price: 1450, customisable: true },
+      { slug: 'heart-bracelet', name: 'Heart Bracelet', price: 900, customisable: true },
+    ],
+  },
+  {
+    slug: 'mom-to-be',
+    eyebrow: 'Mom-to-Be Bangles',
+    headline: 'Nine months of waiting, held in a pair of bangles.',
+    blurb: `For the mother-to-be — a set she'll wear through every kick and every wait.`,
+    icon: 'baby',
+    motif: 'baby',
+    mood: { from: '#7A2A45', to: '#D9A441', ink: '#FBEFE3', accent: '#EFC9A0' },
+    items: [
+      { slug: 'mini-bangles-pair', name: 'Mini Bangles Pair', price: 1200, customisable: true },
+      { slug: 'long-bangles-pair', name: 'Long Bangles Pair', price: 1600, customisable: true },
+    ],
+  },
+  {
+    slug: 'watch-charms',
+    eyebrow: 'Watch Charms',
+    headline: 'A small charm for the watch you already never take off.',
+    blurb: `Five designs, each one small enough to wear every day.`,
+    icon: 'charms',
+    motif: 'charms',
+    mood: { from: '#6E1230', to: '#D94F63', ink: '#FCEAE9', accent: '#F2A0A8' },
+    items: [
+      { slug: 'watch-charm-1', name: 'Watch Charm — Evil Eye', price: 450, customisable: true },
+      { slug: 'watch-charm-2', name: 'Watch Charm — Pearl', price: 450, customisable: true },
+      { slug: 'watch-charm-3', name: 'Watch Charm — Initial', price: 400, customisable: true },
+      { slug: 'watch-charm-4', name: 'Watch Charm — Heart', price: 450, customisable: true },
+      { slug: 'watch-charm-5', name: 'Watch Charm — Trio', price: 550, customisable: true },
+    ],
+  },
+  {
+    slug: 'bag-charms',
+    eyebrow: 'Bag Charms',
+    headline: 'The first thing you clip on before you leave the house.',
+    blurb: `A small flourish for the bag you carry every day.`,
+    icon: 'charms',
+    motif: 'charms',
+    mood: { from: '#8A3A1C', to: '#E8A45C', ink: '#FBEEDF', accent: '#F0C08A' },
+    items: [
+      { slug: 'bag-charm-classic-bow', name: 'Bag Charm — Classic Bow', price: 500, customisable: true },
+      { slug: 'bag-charm-initial', name: 'Bag Charm — Initial', price: 450, customisable: true },
+      { slug: 'bag-charm-evil-eye', name: 'Bag Charm — Evil Eye', price: 500, customisable: true },
     ],
   },
   {
     slug: 'kaleere',
     eyebrow: 'Kaleere & Bridal',
     headline: 'Before you enter as a bride, walk in carrying every woman who ever wished you well.',
-    blurb: `Tied on by sisters and friends before the wedding. Choose who gets a charm on your string.`,
+    blurb: `Wedding jewellery and wedding kaleere — coming soon.`,
     icon: 'kaleere',
     motif: 'kaleere',
     mood: { from: '#5A1030', to: '#C9974B', ink: '#FBF0E4', accent: '#D9B36C' },
-    items: [
-      { slug: 'evil-eye-kaleere', name: 'Evil Eye Kaleere', price: 3200, customisable: true },
-      { slug: 'pearl-fall-kaleere', name: 'Pearl Fall Kaleere', price: 3600, customisable: true },
-      { slug: 'bridal-jhumki-kaleere', name: 'Bridal Jhumki Kaleere', price: 4100, customisable: true },
-      { slug: 'mini-kaleere', name: 'Mini Kaleere (Sangeet)', price: 2400, customisable: true },
-    ],
-  },
-  {
-    slug: 'baby',
-    eyebrow: 'Baby & New Beginnings',
-    headline: 'Nine months of waiting, held in fourteen small charms.',
-    blurb: `For the mother-to-be, or the child who's just arrived.`,
-    icon: 'baby',
-    motif: 'baby',
-    mood: { from: '#7A2A45', to: '#D9A441', ink: '#FBEFE3', accent: '#EFC9A0' },
-    items: [
-      { slug: 'mom-to-be-bangle', name: 'Mom-to-Be Bangle', price: 1450, customisable: true },
-      { slug: 'babys-first-bangle', name: "Baby's First Bangle", price: 1200, customisable: true },
-      { slug: 'photo-medallion-bangle', name: 'Photo Medallion Bangle', price: 1650, customisable: true },
-      { slug: 'godh-bharai-set', name: 'Godh Bharai Set', price: 2900, customisable: true },
-    ],
-  },
-  {
-    slug: 'charms',
-    eyebrow: 'Charm Bracelets',
-    headline: 'Modern, lighter, still anchored by an initial.',
-    blurb: `Beauty charms, an initial, a small everyday indulgence.`,
-    icon: 'charms',
-    motif: 'charms',
-    mood: { from: '#6E1230', to: '#D94F63', ink: '#FCEAE9', accent: '#F2A0A8' },
-    items: [
-      { slug: 'beauty-charm-bracelet', name: 'Beauty Charm Bracelet', price: 1100, customisable: true },
-      { slug: 'initial-charm-bracelet', name: 'Initial Charm Bracelet', price: 850, customisable: true },
-      { slug: 'everyday-stack', name: 'Everyday Stack (Set of 2)', price: 1750, customisable: false },
-      { slug: 'cherry-initial-keychain', name: 'Cherry Initial Keychain', price: 450, customisable: true },
-    ],
+    items: [],
+    comingSoon: true,
   },
   {
     slug: 'friendship',
     eyebrow: 'Friendship & Gifting',
     headline: `The "thank you" that's too small for a card and too meaningful for nothing.`,
-    blurb: `For the friend, the mentor, the person who helped you grow.`,
+    blurb: `For the friend, the mentor, the person who helped you grow — coming soon.`,
     icon: 'friendship',
     motif: 'friendship',
     mood: { from: '#8A3A1C', to: '#E8A45C', ink: '#FBEEDF', accent: '#F0C08A' },
-    items: [
-      { slug: 'flower-keychain-duo', name: 'Flower Keychain Duo', price: 350, customisable: false },
-      { slug: 'thank-you-charm', name: 'Thank You Charm', price: 300, customisable: false },
-      { slug: 'friendship-initials', name: 'Friendship Initials (Set of 2)', price: 650, customisable: true },
-    ],
+    items: [],
+    comingSoon: true,
   },
 ];
 

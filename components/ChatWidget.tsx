@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { ChatMessage } from '@/lib/types';
 
 export default function ChatWidget({
@@ -11,6 +12,7 @@ export default function ChatWidget({
   context: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [text, setText] = useState('');
   const [recording, setRecording] = useState(false);
@@ -18,6 +20,10 @@ export default function ChatWidget({
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   async function loadMessages() {
     try {
@@ -106,11 +112,11 @@ export default function ChatWidget({
     }
   }
 
-  return (
+  const panel = (
     <>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-5 right-5 z-50 glass-tile-dark text-stone50 rounded-full px-5 py-3 text-[13px] font-semibold flex items-center gap-2 shadow-lg"
+        className="fixed bottom-5 right-5 z-[60] glass-tile-dark text-stone50 rounded-full px-5 py-3 text-[13px] font-semibold flex items-center gap-2 shadow-lg"
       >
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M4 4h16v12H8l-4 4V4Z" />
@@ -119,7 +125,10 @@ export default function ChatWidget({
       </button>
 
       {open && (
-        <div className="fixed bottom-20 right-5 z-50 w-[92vw] max-w-sm max-h-[70vh] glass-tile flex flex-col overflow-hidden">
+        <div
+          className="fixed bottom-20 right-5 z-[60] flex flex-col overflow-hidden glass-tile"
+          style={{ width: 'min(92vw, 380px)', maxHeight: '70vh' }}
+        >
           <div className="flex items-start justify-between px-4 py-3 border-b border-white/40">
             <div>
               <div className="font-display text-[16px] text-stone900">Design Studio</div>
@@ -180,4 +189,7 @@ export default function ChatWidget({
       )}
     </>
   );
+
+  if (!mounted) return null;
+  return createPortal(panel, document.body);
 }
