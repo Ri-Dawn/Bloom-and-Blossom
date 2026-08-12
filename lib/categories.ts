@@ -6,10 +6,7 @@ export interface CatalogItem {
 }
 
 export interface Mood {
-  from: string; // gradient start (hex)
-  to: string; // gradient end (hex)
-  ink: string; // readable text colour against this mood
-  accent: string; // small accent colour (dots, underline, traveling light)
+  accent: string; // this occasion's shade within the shared gold family
 }
 
 export type Motif = 'rakhi' | 'kaleere' | 'baby' | 'charms' | 'friendship';
@@ -34,7 +31,7 @@ export const CATEGORIES: Category[] = [
     blurb: `Bada Bhai, Sabse Pyaara Bhai, a nickname only you use — tell us his name and we'll take it from there.`,
     icon: 'rakhi',
     motif: 'rakhi',
-    mood: { from: '#7A1230', to: '#E0912A', ink: '#FCEFE0', accent: '#F2B705' },
+    mood: { accent: '#C9974B' },
     items: [
       { slug: 'brother-rakhi', name: 'Brother Rakhi', price: 650, customisable: true },
       { slug: 'mini-charm-bangle', name: 'Mini Charm Bangle', price: 950, customisable: true },
@@ -57,7 +54,7 @@ export const CATEGORIES: Category[] = [
     blurb: `For the mother-to-be — a set she'll wear through every kick and every wait.`,
     icon: 'baby',
     motif: 'baby',
-    mood: { from: '#7A2A45', to: '#D9A441', ink: '#FBEFE3', accent: '#EFC9A0' },
+    mood: { accent: '#D9A441' },
     items: [
       { slug: 'mini-bangles-pair', name: 'Mini Bangles Pair', price: 1200, customisable: true },
       { slug: 'long-bangles-pair', name: 'Long Bangles Pair', price: 1600, customisable: true },
@@ -70,7 +67,7 @@ export const CATEGORIES: Category[] = [
     blurb: `Five designs, each one small enough to wear every day.`,
     icon: 'charms',
     motif: 'charms',
-    mood: { from: '#6E1230', to: '#D94F63', ink: '#FCEAE9', accent: '#F2A0A8' },
+    mood: { accent: '#B5824A' },
     items: [
       { slug: 'watch-charm-1', name: 'Watch Charm — Evil Eye', price: 450, customisable: true },
       { slug: 'watch-charm-2', name: 'Watch Charm — Pearl', price: 450, customisable: true },
@@ -86,7 +83,7 @@ export const CATEGORIES: Category[] = [
     blurb: `A small flourish for the bag you carry every day.`,
     icon: 'charms',
     motif: 'charms',
-    mood: { from: '#8A3A1C', to: '#E8A45C', ink: '#FBEEDF', accent: '#F0C08A' },
+    mood: { accent: '#CBA135' },
     items: [
       { slug: 'bag-charm-classic-bow', name: 'Bag Charm — Classic Bow', price: 500, customisable: true },
       { slug: 'bag-charm-initial', name: 'Bag Charm — Initial', price: 450, customisable: true },
@@ -100,7 +97,7 @@ export const CATEGORIES: Category[] = [
     blurb: `Wedding jewellery and wedding kaleere — coming soon.`,
     icon: 'kaleere',
     motif: 'kaleere',
-    mood: { from: '#5A1030', to: '#C9974B', ink: '#FBF0E4', accent: '#D9B36C' },
+    mood: { accent: '#A9762F' },
     items: [],
     comingSoon: true,
   },
@@ -111,7 +108,7 @@ export const CATEGORIES: Category[] = [
     blurb: `For the friend, the mentor, the person who helped you grow — coming soon.`,
     icon: 'friendship',
     motif: 'friendship',
-    mood: { from: '#8A3A1C', to: '#E8A45C', ink: '#FBEEDF', accent: '#F0C08A' },
+    mood: { accent: '#C08A52' },
     items: [],
     comingSoon: true,
   },

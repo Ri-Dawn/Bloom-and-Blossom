@@ -8,27 +8,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Category } from '@/lib/categories';
 import CategoryIcon from './CategoryIcon';
 import RakhiTieAnimation from './decor/RakhiTieAnimation';
+import { CornerFlourish } from './decor/CornerFlourish';
 import TravelingLight from './TravelingLight';
 
-function hexToRgb(hex: string) {
-  const clean = hex.replace('#', '');
-  const bigint = parseInt(clean, 16);
-  return { r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255 };
-}
+const INK = '#3A1015'; // one wine ink, used for every headline on the site
+const WINE = '#7A1230'; // the one CTA colour, used everywhere
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 function applyMood(cat: Category) {
-  const from = hexToRgb(cat.mood.from);
-  const to = hexToRgb(cat.mood.to);
-  const root = document.documentElement.style;
-  root.setProperty('--current-mood', cat.mood.accent);
-  root.setProperty(
-    '--current-mood-wash',
-    `linear-gradient(120deg, rgba(${from.r},${from.g},${from.b},0.22), rgba(${to.r},${to.g},${to.b},0.13))`
-  );
+  document.documentElement.style.setProperty('--current-mood', cat.mood.accent);
 }
 
 function Section({ cat, index }: { cat: Category; index: number }) {
@@ -37,8 +28,6 @@ function Section({ cat, index }: { cat: Category; index: number }) {
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
-      // hand the header the current occasion's colour as this section
-      // crosses the middle of the viewport, in either scroll direction
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top center',
@@ -47,7 +36,6 @@ function Section({ cat, index }: { cat: Category; index: number }) {
         onEnterBack: () => applyMood(cat),
       });
     }, sectionRef);
-
     return () => ctx.revert();
   }, [cat]);
 
@@ -56,81 +44,78 @@ function Section({ cat, index }: { cat: Category; index: number }) {
       ref={sectionRef}
       id={cat.slug}
       className="relative flex items-center overflow-hidden"
-      style={{ minHeight: 'clamp(480px, 86vh, 820px)' }}
+      style={{ minHeight: 'clamp(460px, 78vh, 760px)', background: index % 2 === 0 ? '#FBF3E8' : '#F7E9DA' }}
     >
-      <div className="absolute inset-0" style={{ background: `linear-gradient(150deg, ${cat.mood.from}, ${cat.mood.to})` }} />
-      <div className="absolute inset-0 diya-dots opacity-10" />
+      <div className="gold-thread-divider absolute top-0 left-0 right-0" />
+      <CornerFlourish className="section-flourish absolute top-9 left-14 w-16 h-16 hidden md:block" style={{ color: cat.mood.accent }} />
+      <CornerFlourish flip className="section-flourish absolute bottom-9 right-14 w-16 h-16 hidden md:block" style={{ color: cat.mood.accent }} />
 
       {cat.motif === 'rakhi' && !cat.comingSoon && (
-        <div className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 w-[220px] pointer-events-none opacity-90">
-          <RakhiTieAnimation triggerRef={sectionRef} ink={cat.mood.ink} accent={cat.mood.accent} />
+        <div className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 w-[200px] pointer-events-none opacity-80">
+          <RakhiTieAnimation triggerRef={sectionRef} ink={INK} accent={cat.mood.accent} />
         </div>
       )}
 
       <div className="relative z-10 max-w-2xl mx-auto px-6 sm:px-10 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] tracking-[0.2em] uppercase mb-6"
-          style={{ color: cat.mood.ink, background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.28)' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="glow-badge inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] tracking-[0.2em] uppercase mb-7"
+          style={{ color: WINE, borderColor: `${cat.mood.accent}88` }}
         >
           <CategoryIcon name={cat.icon} className="w-3.5 h-3.5" />
           {cat.eyebrow}
-          {cat.comingSoon && <span className="opacity-70">· Coming Soon</span>}
+          {cat.comingSoon && <span className="opacity-60">· Coming Soon</span>}
         </motion.div>
 
         <motion.h2
-          initial={{ opacity: 0, y: 22 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.75, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(26px,4.6vw,44px)] leading-[1.2]"
-          style={{ color: cat.mood.ink }}
+          transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display italic text-[clamp(26px,4.4vw,42px)] leading-[1.25]"
+          style={{ color: INK }}
         >
           {cat.headline}
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 0.88, y: 0 }}
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.65, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-4 text-[14.5px]"
-          style={{ color: cat.mood.ink }}
+          transition={{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-5 text-[14.5px]"
+          style={{ color: '#7A5D4E' }}
         >
           {cat.blurb}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8"
+          transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-9"
         >
           {cat.comingSoon ? (
             <span
-              className="inline-flex items-center gap-2 text-[13px] font-semibold rounded-full px-6 py-3 border"
-              style={{ borderColor: cat.mood.ink, color: cat.mood.ink, opacity: 0.75 }}
+              className="inline-flex items-center gap-2 text-[12px] tracking-[0.08em] uppercase font-semibold rounded-sm px-6 py-3 border"
+              style={{ borderColor: INK, color: INK, opacity: 0.6 }}
             >
               Notify me when it's ready
             </span>
           ) : (
             <Link
               href={`/category/${cat.slug}`}
-              className="inline-flex items-center gap-2 text-[13px] font-semibold rounded-full px-6 py-3 transition-transform hover:-translate-y-0.5"
-              style={{ background: cat.mood.ink, color: cat.mood.from }}
+              className="glow-cta inline-flex items-center gap-2 text-[12px] tracking-[0.08em] uppercase font-semibold rounded-sm px-7 py-3.5 transition-transform hover:-translate-y-0.5"
+              style={{ background: WINE, color: '#FBF3E8' }}
             >
               Explore {cat.eyebrow.split('&')[0].trim()}
             </Link>
           )}
         </motion.div>
-
-        <div className="mt-5 text-[11px] tracking-[0.14em] uppercase" style={{ color: cat.mood.ink, opacity: 0.45 }}>
-          {String(index + 1).padStart(2, '0')} — keep scrolling
-        </div>
       </div>
     </section>
   );
@@ -142,7 +127,6 @@ export default function ScrollStory({ categories }: { categories: Category[] }) 
 
   return (
     <div ref={containerRef} className="relative">
-      {/* one thread, running the length of the whole page — not repeated per section */}
       <TravelingLight containerRef={containerRef} colors={colors} />
 
       <div className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-30 hidden sm:flex flex-col gap-4">
@@ -151,8 +135,8 @@ export default function ScrollStory({ categories }: { categories: Category[] }) 
             key={c.slug}
             href={`#${c.slug}`}
             aria-label={c.eyebrow}
-            className="w-2.5 h-2.5 rounded-full border border-white/50 hover:scale-125 transition-transform"
-            style={{ background: 'rgba(255,255,255,0.35)' }}
+            className="w-2 h-2 rounded-full border hover:scale-125 transition-transform"
+            style={{ borderColor: '#A9762F88', background: 'rgba(169,118,47,0.25)' }}
           />
         ))}
       </div>
