@@ -127,7 +127,7 @@ export default function ChatWidget({
       {open && (
         <div
           className="fixed bottom-20 right-5 z-[60] flex flex-col overflow-hidden glass-tile"
-          style={{ width: 'min(92vw, 380px)', maxHeight: '70vh' }}
+          style={{ position: 'fixed', width: 'min(92vw, 380px)', maxHeight: '70vh' }}
         >
           <div className="flex items-start justify-between px-4 py-3 border-b border-white/40">
             <div>

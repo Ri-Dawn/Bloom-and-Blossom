@@ -228,6 +228,46 @@ body {
     0 0 60px 20px rgba(217, 179, 108, 0.28);
 }
 
+/* ---------- Dusk Temple: the story-section scene ---------- */
+.dusk-section {
+  background: radial-gradient(ellipse 70% 55% at 50% 8%, #5A2A45 0%, #341226 55%, #1C0A16 100%);
+}
+@keyframes duskStarTwinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.85; }
+}
+.dusk-star {
+  animation: duskStarTwinkle 3.2s ease-in-out infinite;
+}
+@keyframes duskBulbGlow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+.dusk-bulb {
+  animation: duskBulbGlow 2.4s ease-in-out infinite;
+}
+.dusk-glass-card {
+  background: rgba(30, 12, 22, 0.4);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(233, 207, 168, 0.25);
+  border-radius: 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+.dusk-badge {
+  color: #F3E4C8;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(217, 179, 108, 0.45);
+}
+.dusk-cta {
+  background: #D9B36C;
+  color: #2B0F16;
+  box-shadow: 0 0 0 1px rgba(217, 179, 108, 0.55), 0 0 20px 5px rgba(217, 179, 108, 0.3);
+}
+.dusk-cta:hover {
+  box-shadow: 0 0 0 1px rgba(217, 179, 108, 0.75), 0 0 28px 8px rgba(217, 179, 108, 0.45);
+}
+
 /* ---------- footer, a quiet echo of the marigold string ---------- */
 .footer-thread {
   height: 1px;

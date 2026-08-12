@@ -15,6 +15,7 @@ export interface Category {
   slug: string;
   eyebrow: string;
   headline: string;
+  hindi: string; // a short bilingual accent line beneath the headline
   blurb: string;
   icon: Motif;
   motif: Motif;
@@ -27,7 +28,8 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'rakhi',
     eyebrow: 'Rakhi & Sibling Bonds',
-    headline: `For the brother who's called you "chotu" since you were four feet tall.`,
+    headline: `A thread for a promise he never had to make.`,
+    hindi: 'यह धागा वादा नहीं — यह फ़र्ज़ है',
     blurb: `Bada Bhai, Sabse Pyaara Bhai, a nickname only you use — tell us his name and we'll take it from there.`,
     icon: 'rakhi',
     motif: 'rakhi',
@@ -51,6 +53,7 @@ export const CATEGORIES: Category[] = [
     slug: 'mom-to-be',
     eyebrow: 'Mom-to-Be Bangles',
     headline: 'Nine months of waiting, held in a pair of bangles.',
+    hindi: 'नौ महीने का इंतज़ार, एक धागे में',
     blurb: `For the mother-to-be — a set she'll wear through every kick and every wait.`,
     icon: 'baby',
     motif: 'baby',
@@ -64,6 +67,7 @@ export const CATEGORIES: Category[] = [
     slug: 'watch-charms',
     eyebrow: 'Watch Charms',
     headline: 'A small charm for the watch you already never take off.',
+    hindi: 'हर पल के साथ, एक छोटी सी याद',
     blurb: `Five designs, each one small enough to wear every day.`,
     icon: 'charms',
     motif: 'charms',
@@ -80,6 +84,7 @@ export const CATEGORIES: Category[] = [
     slug: 'bag-charms',
     eyebrow: 'Bag Charms',
     headline: 'The first thing you clip on before you leave the house.',
+    hindi: 'हर सफ़र में साथ, एक छोटा सा साथी',
     blurb: `A small flourish for the bag you carry every day.`,
     icon: 'charms',
     motif: 'charms',
@@ -94,6 +99,7 @@ export const CATEGORIES: Category[] = [
     slug: 'kaleere',
     eyebrow: 'Kaleere & Bridal',
     headline: 'Before you enter as a bride, walk in carrying every woman who ever wished you well.',
+    hindi: 'हर दुआ का धागा, कलीरे में बंधा',
     blurb: `Wedding jewellery and wedding kaleere — coming soon.`,
     icon: 'kaleere',
     motif: 'kaleere',
@@ -105,6 +111,7 @@ export const CATEGORIES: Category[] = [
     slug: 'friendship',
     eyebrow: 'Friendship & Gifting',
     headline: `The "thank you" that's too small for a card and too meaningful for nothing.`,
+    hindi: 'दोस्ती का शुक्रिया, शब्दों से परे',
     blurb: `For the friend, the mentor, the person who helped you grow — coming soon.`,
     icon: 'friendship',
     motif: 'friendship',
